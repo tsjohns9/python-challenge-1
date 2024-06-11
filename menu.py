@@ -19,6 +19,7 @@ menu = {
         "Burger": {
             "Chicken": 7.49,
             "Beef": 8.49,
+            "Vegetarian": 9.49,
         },
     },
     "Drinks": {
@@ -56,25 +57,16 @@ place_order = True
 while place_order:
     print("From which menu would you like to order? ")
 
-    i = 1
-    menu_keys_indexes = {}
-    for key in menu.keys():
-        print(f"{i}: {key}")
-        menu_keys_indexes[i] = key
-        i += 1
+    menu_keys_indexes = dict(enumerate(menu.keys(), start=1))
+    for key, value in menu_keys_indexes.items():
+        print(f"{key}: {value}")
 
     menu_selection = input("Enter a number to select a menu category: ")
-    if not menu_selection.isdigit():
+    if not menu_selection.isdigit() or not (1 <= int(menu_selection) <= len(menu)):
         print(f"Please enter a valid number. Received {menu_selection}.\n")
         continue
 
     menu_selection = int(menu_selection)
-    if menu_selection > len(menu) or menu_selection < 1:
-        print(
-            f"{menu_selection} is not a valid menu option. Please enetr a valid number.\n"
-        )
-        continue
-
     sub_menu = menu[menu_keys_indexes[menu_selection]]
 
     print("Item # | Item name                | Price  ")
@@ -91,22 +83,11 @@ while place_order:
                     "Price": value2,
                     "Quantity": 0,
                 }
-
-                item_spaces = 6
-                if i > 10:
-                    item_spaces = 5
-
-                name_spaces = 25 - len(name)
-                print(f"{i}{' ' * item_spaces}| {name}{' ' * name_spaces}| ${value2}")
+                print(f"{i:<7}| {name:<25}| ${value2}")
                 i += 1
             continue
 
-        item_spaces = 6
-        if i > 10:
-            item_spaces = 5
-        name_spaces = 25 - len(key)
-        print(f"{i}{' ' * item_spaces}| {key}{' ' * name_spaces}| ${value}")
-
+        print(f"{i:<7}| {key:<25}| ${value}")
         sub_menu_keys_indexes[i] = {
             "Name": key,
             "Price": value,
@@ -138,15 +119,14 @@ while place_order:
     order_list.append(order)
 
     while True:
-        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
-        match keep_ordering.lower():
-            case "yes" | "y":
-                break
-            case "no" | "n":
-                place_order = False
-                break
-            case _:
-                print("Please enter (Y)es or (N)o")
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
+        if keep_ordering in {"yes", "y"}:
+            break
+        elif keep_ordering in {"no", "n"}:
+            place_order = False
+            break
+        else:
+            print("Please enter (Y)es or (N)o")
 
 print("Item name                | Price   | Quantity ")
 print("-------------------------|---------|----------")
