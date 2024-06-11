@@ -77,12 +77,11 @@ while place_order:
 
     sub_menu = menu[menu_keys_indexes[menu_selection]]
 
-    i = 1
-    sub_menu_keys_indexes = {}
-
     print("Item # | Item name                | Price  ")
     print("-------|--------------------------|--------")
 
+    i = 1
+    sub_menu_keys_indexes = {}
     for key, value in sub_menu.items():
         if type(value) == dict:
             for key2, value2 in value.items():
@@ -149,8 +148,8 @@ while place_order:
             case _:
                 print("Please enter (Y)es or (N)o")
 
-print("Item name                | Price  | Quantity ")
-print("-------------------------|--------|----------")
+print("Item name                | Price   | Quantity ")
+print("-------------------------|---------|----------")
 
 prices = []
 for order in order_list:
@@ -159,9 +158,9 @@ for order in order_list:
     quantity = order["Quantity"]
 
     prices.append(price * quantity)
-    price_spaces = 2
+    price_spaces = 3
     if i > 10:
-        price_spaces = 0
+        price_spaces = 1
 
     name_spaces = 25 - len(item_name)
     print(f"{item_name}{' ' * name_spaces}| ${price}{' ' * price_spaces}| {quantity}")
