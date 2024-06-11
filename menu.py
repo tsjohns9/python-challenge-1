@@ -98,14 +98,9 @@ while place_order:
     item_number = input(
         "Enter a number to select an item. An invalid number will default to 1: "
     )
-    if (
-        not item_number.isdigit()
-        or int(item_number) > len(sub_menu_keys_indexes)
-        or int(item_number) < 1
-    ):
-        item_number = 1
+    item_number = int(item_number) if item_number.isdigit() else 1
+    item_number = max(1, min(item_number, len(sub_menu)))
 
-    item_number = int(item_number)
     order = sub_menu_keys_indexes[item_number]
     item_name = order["Name"]
 
@@ -136,13 +131,7 @@ for order in order_list:
     item_name = order["Name"]
     price = order["Price"]
     quantity = order["Quantity"]
-
     prices.append(price * quantity)
-    price_spaces = 3
-    if price > 10:
-        price_spaces = 2
-
-    name_spaces = 25 - len(item_name)
-    print(f"{item_name}{' ' * name_spaces}| ${price}{' ' * price_spaces}| {quantity}")
+    print(f"{item_name:<25}| ${price:<7}| {quantity}")
 
 print(f"The total order costs ${sum(prices)}")
