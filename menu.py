@@ -66,8 +66,7 @@ while place_order:
         print(f"Please enter a valid number. Received {menu_selection}.\n")
         continue
 
-    menu_selection = int(menu_selection)
-    sub_menu = menu[menu_keys_indexes[menu_selection]]
+    sub_menu = menu[menu_keys_indexes[int(menu_selection)]]
 
     print("Item # | Item name                | Price  ")
     print("-------|--------------------------|--------")
