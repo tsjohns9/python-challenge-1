@@ -79,8 +79,10 @@ while place_order:
 
     i = 1
     sub_menu_keys_indexes = {}
+
     print("Item # | Item name                | Price  ")
     print("-------|--------------------------|--------")
+
     for key, value in sub_menu.items():
         if type(value) == dict:
             for key2, value2 in value.items():
@@ -150,14 +152,18 @@ while place_order:
 print("Item name                | Price  | Quantity ")
 print("-------------------------|--------|----------")
 
+prices = []
 for order in order_list:
     item_name = order["Name"]
     price = order["Price"]
     quantity = order["Quantity"]
 
+    prices.append(price)
     price_spaces = 2
     if i > 10:
         price_spaces = 1
 
     name_spaces = 25 - len(item_name)
     print(f"{item_name}{' ' * name_spaces}| ${price}{' ' * price_spaces}| {quantity}")
+
+print(f"The total order costs ${sum(prices)}")
