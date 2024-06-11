@@ -158,10 +158,10 @@ for order in order_list:
     price = order["Price"]
     quantity = order["Quantity"]
 
-    prices.append(price)
+    prices.append(price * quantity)
     price_spaces = 2
     if i > 10:
-        price_spaces = 1
+        price_spaces = 0
 
     name_spaces = 25 - len(item_name)
     print(f"{item_name}{' ' * name_spaces}| ${price}{' ' * price_spaces}| {quantity}")
