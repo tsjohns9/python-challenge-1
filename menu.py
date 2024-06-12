@@ -104,8 +104,10 @@ while place_order:
     order = sub_menu_keys_indexes[item_number]
     item_name = order["Name"]
 
-    quantity = input(f"How many items of {item_name} would you like? ")
-    if not quantity.isdigit():
+    quantity = input(
+        f"How many items of {item_name} would you like? An invalid number will default to 1: "
+    )
+    if not quantity.isdigit() or int(quantity) < 1:
         quantity = 1
 
     quantity = int(quantity)
