@@ -117,23 +117,24 @@ while place_order:
 
     while True:
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
-        if keep_ordering in {"yes", "y"}:
-            break
-        elif keep_ordering in {"no", "n"}:
-            place_order = False
-            break
-        else:
-            print("Please enter (Y)es or (N)o")
+        match keep_ordering:
+            case "yes" | "y":
+                break
+            case "no" | "n":
+                place_order = False
+                break
+            case _:
+                print("Please enter (Y)es or (N)o")
 
 print("Item name                | Price   | Quantity ")
 print("-------------------------|---------|----------")
 
-prices = []
+
 for order in order_list:
     item_name = order["Name"]
     price = order["Price"]
     quantity = order["Quantity"]
-    prices.append(price * quantity)
     print(f"{item_name:<25}| ${price:<7}| {quantity}")
 
-print(f"The total order costs ${round(sum(prices), 2)}")
+total = sum(order["Price"] * order["Quantity"] for order in order_list)
+print(f"The total order costs ${round(total, 2)}")
